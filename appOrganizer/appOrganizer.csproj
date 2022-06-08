@@ -68,8 +68,9 @@
     <Compile Include="Organizer\Activity\Fragments\TimerFragment.cs" />
     <Compile Include="Organizer\Activity\MainActivity.cs" />
     <Compile Include="Organizer\Tasks\ListTasks.cs" />
-    <Compile Include="Organizer\Tasks\ListTasks\ListTaskArrayAdapter.cs" />
+    <Compile Include="Organizer\Tasks\ListTasks\ListTasksArrayAdapter.cs" />
     <Compile Include="Organizer\Tasks\Task.cs" />
+    <Compile Include="Organizer\Tasks\Time.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -9,8 +9,6 @@ namespace appOrganizer.Organizer.Activity.Fragments
     {
         private ListView TaskList;
 
-        private Android.App.Activity _activityContext;
- 
         public override void OnCreate (Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -23,7 +21,7 @@ namespace appOrganizer.Organizer.Activity.Fragments
             string[] tasks = { "task1", "task2", "task3" };
 
             TaskList = view.FindViewById<ListView>(Resource.Id.TasksList);
-            TaskArrayAdapter adapter = new TaskArrayAdapter(_activityContext, tasks);
+            ListTasksArrayAdapter adapter = new ListTasksArrayAdapter(null, tasks); // Могут возникнуть ошибки из-за null
             TaskList.Adapter = adapter;
 
             return view;

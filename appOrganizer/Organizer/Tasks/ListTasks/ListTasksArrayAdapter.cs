@@ -4,14 +4,14 @@ using System;
 
 namespace appOrganizer.Organizer.Tasks
 {
-    class TaskArrayAdapter : BaseAdapter<string>
+    class ListTasksArrayAdapter : BaseAdapter<string>
     {
         private string[] _nameTasks;
 
         private Android.App.Activity _context;
         public override string this[int position] => throw new NotImplementedException();
 
-        public TaskArrayAdapter(Android.App.Activity context, string[] nameTasks) : base()
+        public ListTasksArrayAdapter(Android.App.Activity context, string[] nameTasks) : base()
         {
             _nameTasks = nameTasks;
             _context = context;
