@@ -11,7 +11,7 @@ using System.Text;
 
 namespace appOrganizer.Organizer.Tasks
 {
-    class Time
+    public class Time
     {
         private byte _minute; 
         private byte _hour; 
@@ -33,11 +33,11 @@ namespace appOrganizer.Organizer.Tasks
             if (time.Length != 12)
                 throw new ArgumentNullException();
 
-            _minute = Byte.Parse(time.Substring(0, 1));
-            _hour = Byte.Parse(time.Substring(2, 3));
-            _day = Byte.Parse(time.Substring(4, 5));
-            _mounth = Byte.Parse(time.Substring(6, 7));
-            _year = Int32.Parse(time.Substring(8, 11));
+            _minute = Byte.Parse(time.Substring(0, 2));
+            _hour = Byte.Parse(time.Substring(2, 2));
+            _day = Byte.Parse(time.Substring(4, 2));
+            _mounth = Byte.Parse(time.Substring(6, 2));
+            _year = Int32.Parse(time.Substring(8, 2));
 
         }
 
@@ -101,7 +101,7 @@ namespace appOrganizer.Organizer.Tasks
             }
         }
 
-        public string GetStringTime ()
+        public override string ToString ()
         {
             string minute = _minute < 10 ? "0" : "" + _minute;
             string hour = _hour < 10 ? "0" : "" + _hour;

@@ -11,12 +11,22 @@ using System.Text;
 
 namespace appOrganizer.Organizer.Tasks
 {
-    class ListTasks
+    public class ListTasks
     {
         private List<Task> _tasks;
         public ListTasks ()
         {
             _tasks = new List<Task>();
+        }
+
+        public Task this[int position]
+        {
+            get { return _tasks[position]; }
+        }
+
+        public int Count
+        {
+            get { return _tasks.Count; }
         }
 
         public void AddTask(string label, string textTask)
@@ -27,6 +37,29 @@ namespace appOrganizer.Organizer.Tasks
         public void DeleteTask(int index)
         {
             _tasks.RemoveAt(index);
+        }
+
+        public override string ToString ()
+        {
+            string listTask = "";
+
+            foreach (Task task in _tasks)
+                listTask += task.ToString() + "╬";
+
+            return listTask[..^1];
+        }
+
+        public ListTasks(string listTask)
+        {
+            _tasks = new List<Task>();
+
+            if (listTask == "")
+                return;
+
+            string[] arrayTasks = listTask.Split('╬');
+
+            foreach (string task in arrayTasks)
+                _tasks.Add(new Task(task));
         }
     }
 }

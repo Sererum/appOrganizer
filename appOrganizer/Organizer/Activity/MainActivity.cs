@@ -4,6 +4,7 @@ using Android.Util;
 using Android.Widget;
 using AndroidX.AppCompat.App;
 using appOrganizer.Organizer.Activity.Fragments;
+using appOrganizer.Organizer.Data;
 using System;
 
 using Fragment = AndroidX.Fragment.App.Fragment;
@@ -39,9 +40,17 @@ namespace appOrganizer
             TimerButton = FindViewById<Button>(Resource.Id.TimerButton);
             AccountButton = FindViewById<Button>(Resource.Id.AccountButton);
 
+            Server.LoadData();
+
+            InitFragments(savedInstanceState);
+            InitButtons();
+        }
+
+        private void InitFragments (Bundle savedInstanceState)
+        {
             CalendarFragment = new CalendarFragment();
             ScheduleFragment = new ScheduleFragment();
-            ListTasksFragment = new ListTasksFragment();
+            ListTasksFragment = new ListTasksFragment(this);
             TimerFragment = new TimerFragment();
             AccountFragment = new AccountFragment();
 
@@ -60,8 +69,10 @@ namespace appOrganizer
             }
 
             FragmentTransaction.Show(CurrentFragment);
+        }
 
-            
+        private void InitButtons ()
+        {
             CalendarButton.Click += delegate
             {
                 ShowFragment(CalendarFragment);
@@ -84,7 +95,7 @@ namespace appOrganizer
             };
         }
 
-        private void ShowFragment(Fragment fragment)
+        private void ShowFragment (Fragment fragment)
         {
             if (fragment.IsVisible)
                 return;

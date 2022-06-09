@@ -1,25 +1,31 @@
 ﻿using Android.Views;
 using Android.Widget;
+using appOrganizer.Organizer.Data;
 using System;
 
 namespace appOrganizer.Organizer.Tasks
 {
-    class ListTasksArrayAdapter : BaseAdapter<string>
+    class ListTasksArrayAdapter : BaseAdapter<Task>
     {
-        private string[] _nameTasks;
+        private ListTasks _listTasks;
 
         private Android.App.Activity _context;
-        public override string this[int position] => throw new NotImplementedException();
 
-        public ListTasksArrayAdapter(Android.App.Activity context, string[] nameTasks) : base()
+        public ListTasksArrayAdapter(Android.App.Activity context) : base()
         {
-            _nameTasks = nameTasks;
+            _listTasks = OrganaizerState.ListTasks;
             _context = context;
+        }
+
+        public override Task this[int position]
+        {
+            get { return _listTasks[position]; }
+            
         }
 
         public override int Count
         {
-            get { return _nameTasks.Length; }
+            get { return _listTasks.Count; }
         }
 
         public override long GetItemId (int position)
@@ -34,7 +40,7 @@ namespace appOrganizer.Organizer.Tasks
             if (view == null)
                 view = _context.LayoutInflater.Inflate(Resource.Layout.task_item_list, null);
 
-            view.FindViewById<TextView>(Resource.Id.NameTaskTextView).Text = _nameTasks[position];
+            view.FindViewById<TextView>(Resource.Id.NameTaskTextView).Text = _listTasks[position].Label;
 
             return view;
         }
