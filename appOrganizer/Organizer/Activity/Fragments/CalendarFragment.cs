@@ -2,9 +2,11 @@
 using Android.OS;
 using Android.Views;
 
+using Fragment = AndroidX.Fragment.App.Fragment;
+
 namespace appOrganizer.Organizer.Activity.Fragments
 {
-    public class CalendarFragment : AndroidX.Fragment.App.Fragment
+    public class CalendarFragment : Fragment
     {
         public override void OnCreate (Bundle savedInstanceState)
         {

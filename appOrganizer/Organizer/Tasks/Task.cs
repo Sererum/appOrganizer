@@ -4,7 +4,7 @@ namespace appOrganizer.Organizer.Tasks
 {
     public class Task
     {
-        private string _label;
+        private string _title;
         private string _textTask;
 
         private byte _priority;
@@ -12,30 +12,30 @@ namespace appOrganizer.Organizer.Tasks
         private Time _timeStart;
         private Time _timeEnd;
 
-        public Task (string label, string textTask, Time timeStart, Time timeEnd, byte priority = 5)
+        public Task (string title, string textTask, Time timeStart, Time timeEnd, byte priority = 5)
         {
-            _label = label;
+            _title = title;
             _textTask = textTask;
             _priority = priority;
             _timeStart = timeStart;
             _timeEnd = timeEnd;
         }
 
-        public Task (string label, string textTask, Time timeStart, byte priority = 5) : this(label, textTask, timeStart, new Time("592331123000"), priority)
+        public Task (string label, string textTask, Time timeStart, byte priority = 5) : this(label, textTask, timeStart, new Time("000000000000"), priority)
         { }
 
-        public Task (string label, string textTask, byte priority = 5) : this(label, textTask, new Time("000001012000"), new Time("592331123000"), priority)
+        public Task (string label, string textTask, byte priority = 5) : this(label, textTask, new Time("000000000000"), new Time("000000000000"), priority)
         { }
 
-        public string Label
+        public string Title
         {
-            get { return _label; }
+            get { return _title; }
             set
             {
                 if (value == null || value == "")
                     throw new ArgumentNullException();
 
-                _label = value;
+                _title = value;
             }
         }
 
@@ -68,7 +68,7 @@ namespace appOrganizer.Organizer.Tasks
             get { return _timeStart; }
             set
             {
-                if (_timeEnd != null && value.IsMoreThan(_timeEnd))
+                if (value.IsRight() == false || _timeEnd != null && value.IsMoreThan(_timeEnd))
                     throw new TimeoutException();
 
                 _timeStart = value;
@@ -80,7 +80,7 @@ namespace appOrganizer.Organizer.Tasks
             get { return _timeEnd; }
             set
             {
-                if (TimeStart.IsMoreThan(value))
+                if (value.IsRight() == false || TimeStart.IsMoreThan(value))
                     throw new TimeoutException();
 
                 _timeEnd = value;
@@ -89,13 +89,13 @@ namespace appOrganizer.Organizer.Tasks
 
         public override string ToString ()
         {
-            return _label + "═" + _textTask + "═" + _priority + "═" + _timeStart + "═" + _timeEnd;
+            return _title + "═" + _textTask + "═" + _priority + "═" + _timeStart + "═" + _timeEnd;
         }
 
         public Task(string task)
         {
             string[] arrayTask = task.Split('═');
-            _label = arrayTask[0];
+            _title = arrayTask[0];
             _textTask = arrayTask[1];
             _priority = Byte.Parse(arrayTask[2]);
             _timeStart = new Time(arrayTask[3]);

@@ -1,11 +1,11 @@
 ﻿using Android.App;
 using Android.OS;
 using Android.Util;
+using Android.Views;
 using Android.Widget;
 using AndroidX.AppCompat.App;
 using appOrganizer.Organizer.Activity.Fragments;
 using appOrganizer.Organizer.Data;
-using System;
 
 using Fragment = AndroidX.Fragment.App.Fragment;
 using FragmentTransaction = AndroidX.Fragment.App.FragmentTransaction;
@@ -21,13 +21,20 @@ namespace appOrganizer
         private Button TimerButton;
         private Button AccountButton;
 
+        private Button AddTaskButton;
+
         private Fragment CalendarFragment;
         private Fragment ScheduleFragment;
         private Fragment ListTasksFragment;
         private Fragment TimerFragment;
         private Fragment AccountFragment;
 
+        private Fragment CreateTaskFragment;
+
         private Fragment CurrentFragment;
+
+        private ViewStates LastAddTaskButtonState = ViewStates.Visible;
+        private Fragment LastFragment;
 
         protected override void OnCreate (Bundle savedInstanceState)
         {
@@ -39,6 +46,8 @@ namespace appOrganizer
             ListTasksButton = FindViewById<Button>(Resource.Id.ListTasksButton);
             TimerButton = FindViewById<Button>(Resource.Id.TimerButton);
             AccountButton = FindViewById<Button>(Resource.Id.AccountButton);
+
+            AddTaskButton = FindViewById<Button>(Resource.Id.AddTaskButton);
 
             Server.LoadData();
 
@@ -54,6 +63,8 @@ namespace appOrganizer
             TimerFragment = new TimerFragment();
             AccountFragment = new AccountFragment();
 
+            CreateTaskFragment = new CreateTaskFragment(this);
+
             CurrentFragment = ListTasksFragment;
 
             var FragmentTransaction = SupportFragmentManager.BeginTransaction();
@@ -65,6 +76,7 @@ namespace appOrganizer
                 FragmentTransaction.Add(Resource.Id.FragmentLayout, ListTasksFragment).Hide(ListTasksFragment);
                 FragmentTransaction.Add(Resource.Id.FragmentLayout, TimerFragment).Hide(TimerFragment);
                 FragmentTransaction.Add(Resource.Id.FragmentLayout, AccountFragment).Hide(AccountFragment);
+                FragmentTransaction.Add(Resource.Id.FragmentLayout, CreateTaskFragment).Hide(CreateTaskFragment);
                 FragmentTransaction.Commit();
             }
 
@@ -75,23 +87,50 @@ namespace appOrganizer
         {
             CalendarButton.Click += delegate
             {
+                SaveLastState();
+
+                AddTaskButton.Visibility = ViewStates.Gone;
                 ShowFragment(CalendarFragment);
             };
+
             ScheduleButton.Click += delegate
             {
+                SaveLastState();
+
+                AddTaskButton.Visibility = ViewStates.Gone;
                 ShowFragment(ScheduleFragment);
             };
+
             ListTasksButton.Click += delegate
             {
+                SaveLastState();
+
+                AddTaskButton.Visibility = ViewStates.Visible;
                 ShowFragment(ListTasksFragment);
             };
+
             TimerButton.Click += delegate
             {
+                SaveLastState();
+
+                AddTaskButton.Visibility = ViewStates.Gone;
                 ShowFragment(TimerFragment);
             };
+
             AccountButton.Click += delegate
             {
+                SaveLastState();
+
+                AddTaskButton.Visibility = ViewStates.Gone;
                 ShowFragment(AccountFragment);
+            };
+
+            AddTaskButton.Click += delegate
+            {
+                SaveLastState();
+
+                AddTaskButton.Visibility = ViewStates.Gone;
+                ShowFragment(CreateTaskFragment);
             };
         }
 
@@ -105,9 +144,30 @@ namespace appOrganizer
             FragmentTransaction.Hide(CurrentFragment);
             FragmentTransaction.Show(fragment);
             CurrentFragment = fragment;
-
+            
             FragmentTransaction.AddToBackStack(null);
             FragmentTransaction.Commit();
+        }
+
+        private void SaveLastState ()
+        {
+            LastAddTaskButtonState = AddTaskButton.Visibility;
+            LastFragment = CurrentFragment;
+            Log.Debug("SaveLastState", LastAddTaskButtonState + " " + LastFragment);
+        }
+
+        public void LoadLastState ()
+        {
+            AddTaskButton.Visibility = LastAddTaskButtonState;
+            if (LastFragment != null)
+                ShowFragment(LastFragment);
+
+            Log.Debug("LoadLastState", LastAddTaskButtonState + " " + LastFragment);
+        }
+
+        public override void OnBackPressed ()
+        {
+            LoadLastState();
         }
     }
 }

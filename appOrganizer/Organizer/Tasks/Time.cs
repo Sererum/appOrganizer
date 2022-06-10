@@ -103,10 +103,11 @@ namespace appOrganizer.Organizer.Tasks
 
         public override string ToString ()
         {
-            string minute = _minute < 10 ? "0" : "" + _minute;
-            string hour = _hour < 10 ? "0" : "" + _hour;
-            string day = _day < 10 ? "0" : "" + _day;
-            string mounth = _mounth < 10 ? "0" : "" + _mounth;
+            string minute = (_minute < 10 ? "0" : "") + _minute;
+            string hour = (_hour < 10 ? "0" : "") + _hour;
+            string day = (_day < 10 ? "0" : "") + _day;
+            string mounth = (_mounth < 10 ? "0" : "") + _mounth;
+            string year = _year == 0 ? "0000" : _year.ToString();
 
             return minute + hour + day + mounth + _year;
         }
@@ -128,6 +129,18 @@ namespace appOrganizer.Organizer.Tasks
             if (_minute != time.Minute)
                 return _minute > time.Minute ? true : false;
 
+            return false;
+        }
+
+        public bool IsRight ()
+        {
+            if (0 <= _minute && _minute <= 59 &&
+                0 <= _hour && _hour <= 23 &&
+                0 <= _day && _day <= 31 &&
+                0 <= _mounth && _mounth <= 12 &&
+                (_year == 0 || 2000 <= _year && _year <= 3000))
+
+                return true;
             return false;
         }
     }

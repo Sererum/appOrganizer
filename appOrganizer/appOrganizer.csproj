@@ -63,11 +63,12 @@
   <ItemGroup>
     <Compile Include="Organizer\Activity\Fragments\AccountFragment.cs" />
     <Compile Include="Organizer\Activity\Fragments\CalendarFragment.cs" />
+    <Compile Include="Organizer\Activity\Fragments\CreateTaskFragment.cs" />
     <Compile Include="Organizer\Activity\Fragments\ListTasksFragment.cs" />
     <Compile Include="Organizer\Activity\Fragments\ScheduleFragment.cs" />
     <Compile Include="Organizer\Activity\Fragments\TimerFragment.cs" />
     <Compile Include="Organizer\Activity\MainActivity.cs" />
-    <Compile Include="Organizer\Data\OrganaizerState.cs" />
+    <Compile Include="Organizer\Data\OrganizerState.cs" />
     <Compile Include="Organizer\Data\Server.cs" />
     <Compile Include="Organizer\Tasks\ListTasks.cs" />
     <Compile Include="Organizer\Tasks\ListTasks\ListTasksArrayAdapter.cs" />
@@ -142,6 +143,11 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\task_item_list.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\create_task_layout.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

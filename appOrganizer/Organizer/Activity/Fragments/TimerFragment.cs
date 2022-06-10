@@ -2,9 +2,11 @@
 using Android.OS;
 using Android.Views;
 
+using Fragment = AndroidX.Fragment.App.Fragment;
+
 namespace appOrganizer.Organizer.Activity.Fragments
 {
-    public class TimerFragment : AndroidX.Fragment.App.Fragment
+    public class TimerFragment : Fragment
     {
         public override void OnCreate (Bundle savedInstanceState)
         {

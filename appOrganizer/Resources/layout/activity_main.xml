@@ -6,51 +6,67 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <FrameLayout
+    <RelativeLayout
+        android:id="@+id/FragmentLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/FragmentLayout"
         android:layout_weight="1"
-        />
+        >
+
+        <Button
+            android:id="@+id/AddTaskButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Добавить\nзадачу"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            />
+    
+    </RelativeLayout>
 
     <LinearLayout
+        android:id="@+id/PanelButtonsLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
-        android:id="@+id/PanelButtonsLayout"
         android:layout_weight="5"
         android:background="#AAA">
 
         <Button
+            android:id="@+id/CalendarButton"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="Calendar"
-            android:id="@+id/CalendarButton" />
+            />
         <Button
+            android:id="@+id/ScheduleButton"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="Schedule"
-            android:id="@+id/ScheduleButton" />
+            />
         <Button
+            android:id="@+id/ListTasksButton"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="List Tasks"
-            android:id="@+id/ListTasksButton" />
+            />
         <Button
+            android:id="@+id/TimerButton" 
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="Timer"
-            android:id="@+id/TimerButton" />
+            />
         <Button
+            android:id="@+id/AccountButton" 
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="Account"
-            android:id="@+id/AccountButton" />
+            />
 
     </LinearLayout>
 

@@ -12,7 +12,7 @@ using System.Text;
 
 namespace appOrganizer.Organizer.Data
 {
-    public static class OrganaizerState
+    public static class OrganizerState
     {
         private static ListTasks _listTasks;
 

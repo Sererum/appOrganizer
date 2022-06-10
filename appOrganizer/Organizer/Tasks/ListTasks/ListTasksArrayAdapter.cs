@@ -13,7 +13,7 @@ namespace appOrganizer.Organizer.Tasks
 
         public ListTasksArrayAdapter(Android.App.Activity context) : base()
         {
-            _listTasks = OrganaizerState.ListTasks;
+            _listTasks = OrganizerState.ListTasks;
             _context = context;
         }
 
@@ -40,7 +40,7 @@ namespace appOrganizer.Organizer.Tasks
             if (view == null)
                 view = _context.LayoutInflater.Inflate(Resource.Layout.task_item_list, null);
 
-            view.FindViewById<TextView>(Resource.Id.NameTaskTextView).Text = _listTasks[position].Label;
+            view.FindViewById<TextView>(Resource.Id.NameTaskTextView).Text = _listTasks[position].Title;
 
             return view;
         }
