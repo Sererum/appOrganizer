@@ -68,6 +68,7 @@
     <Compile Include="Organizer\Activity\Fragments\ScheduleFragment.cs" />
     <Compile Include="Organizer\Activity\Fragments\TimerFragment.cs" />
     <Compile Include="Organizer\Activity\MainActivity.cs" />
+    <Compile Include="Organizer\Data\Helper.cs" />
     <Compile Include="Organizer\Data\OrganizerState.cs" />
     <Compile Include="Organizer\Data\Server.cs" />
     <Compile Include="Organizer\Tasks\ListTasks.cs" />
@@ -150,6 +151,9 @@
     <AndroidResource Include="Resources\layout\create_task_layout.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\menu\task_item_context_menu.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

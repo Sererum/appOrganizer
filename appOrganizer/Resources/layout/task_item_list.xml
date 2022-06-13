@@ -2,18 +2,60 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
+    android:layout_height="wrap_content"
+    android:background="#999"
+    android:padding="2dp"
     >
 
-    <TextView
-        android:layout_width="match_parent"
+    <CheckBox
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:id="@+id/NameTaskTextView"
-        android:text="Task"
-        android:textSize="40sp"
-        android:background="#EEE"
-        android:layout_weight="1"
+        android:gravity="center"
+        android:background="#FFF"
+        android:padding="6dp"
         />
 
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#CCC"
+        >
+
+        <TextView
+            android:id="@+id/NameTaskTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            android:textColor="#000"
+            android:background="#FFF"
+            
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="2dp"
+            android:paddingBottom="4dp"
+            
+            android:layout_marginBottom="1dp"
+            
+            android:text="Task"
+        />
+
+        <TextView
+            android:id="@+id/TextTaskTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textColor="#000"
+            android:background="#FFF"
+            
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="1dp"
+            android:paddingBottom="2dp"
+            
+            android:text="Text task"
+        />
+
+    </LinearLayout>
 
 </LinearLayout>

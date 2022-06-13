@@ -1,31 +1,28 @@
-﻿using Android.Views;
+﻿using Android.Util;
+using Android.Views;
 using Android.Widget;
 using appOrganizer.Organizer.Data;
-using System;
 
 namespace appOrganizer.Organizer.Tasks
 {
     class ListTasksArrayAdapter : BaseAdapter<Task>
     {
-        private ListTasks _listTasks;
-
         private Android.App.Activity _context;
 
         public ListTasksArrayAdapter(Android.App.Activity context) : base()
         {
-            _listTasks = OrganizerState.ListTasks;
             _context = context;
         }
 
         public override Task this[int position]
         {
-            get { return _listTasks[position]; }
+            get { return OrganizerState.ListTasks[position]; }
             
         }
 
         public override int Count
         {
-            get { return _listTasks.Count; }
+            get { return OrganizerState.ListTasks.Count; }
         }
 
         public override long GetItemId (int position)
@@ -40,7 +37,32 @@ namespace appOrganizer.Organizer.Tasks
             if (view == null)
                 view = _context.LayoutInflater.Inflate(Resource.Layout.task_item_list, null);
 
-            view.FindViewById<TextView>(Resource.Id.NameTaskTextView).Text = _listTasks[position].Title;
+            view.Click += delegate
+            {
+                PopupMenu popup = new PopupMenu(_context, view);
+                popup.MenuInflater.Inflate(Resource.Menu.task_item_context_menu, popup.Menu);
+                popup.Show();
+
+                popup.MenuItemClick += (object sender, PopupMenu.MenuItemClickEventArgs e) =>
+                {
+                    switch (e.Item.ItemId)
+                    {
+                        case Resource.Id.edit:
+                        {
+                            (_context as MainActivity).EditTask(position);
+                            break;
+                        }
+                        case Resource.Id.delete:
+                        {
+                            (_context as MainActivity).DeleteTask(position);
+                            break;
+                        }
+                    }
+                };
+            };
+
+            view.FindViewById<TextView>(Resource.Id.NameTaskTextView).Text = OrganizerState.ListTasks[position].Title;
+            view.FindViewById<TextView>(Resource.Id.TextTaskTextView).Text = OrganizerState.ListTasks[position].TextTask;
 
             return view;
         }

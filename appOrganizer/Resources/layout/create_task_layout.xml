@@ -4,47 +4,51 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="3"
-        />
-
     <EditText
         android:id="@+id/TitleTaskEditText"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:hint="Title (necessarily)"
+        android:layout_height="wrap_content"
         android:textColorHint="#000"
-        android:layout_weight="3"
-        android:inputType="textCapWords"
+        android:layout_marginTop="50dp"
+        
+        android:textSize="30sp"
+        android:inputType="textCapSentences"
+        
+        android:hint="Title (necessarily)"
+        
         />
 
     <EditText
         android:id="@+id/TextTaskEditText"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:hint="Text task"
+        android:layout_height="wrap_content"
         android:textColorHint="#000"
-        android:layout_weight="3"
-        android:inputType="textCapWords"
+        android:layout_marginTop="10dp"
+        
+        android:textSize="20sp"
+        android:inputType="textCapSentences|textMultiLine"
+        android:maxLines="4"
+        
+        android:hint="Text task"
+        
         />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_weight="3"
+        android:layout_marginTop="20dp"
         >
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="Priority of Task :"
             android:textColor="#000"
             android:textSize="20sp"
             android:gravity="center"
+            
+            android:text="Priority of Task :"
             />
 
         <Spinner
@@ -61,7 +65,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="2"
+        android:layout_weight="3"
         >
 
         <Button
@@ -70,6 +74,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
+            
             android:text="Cancel"
             />
 
@@ -79,6 +84,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_toLeftOf="@id/CancelCreateTaskButton"
+            
             android:text="Ok"
             />
 

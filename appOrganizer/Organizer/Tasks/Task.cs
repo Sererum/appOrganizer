@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Android.Util;
+using appOrganizer.Organizer.Data;
+using System;
 
 namespace appOrganizer.Organizer.Tasks
 {
@@ -14,8 +16,8 @@ namespace appOrganizer.Organizer.Tasks
 
         public Task (string title, string textTask, Time timeStart, Time timeEnd, byte priority = 5)
         {
-            _title = title;
-            _textTask = textTask;
+            Title = title;
+            TextTask = textTask;
             _priority = priority;
             _timeStart = timeStart;
             _timeEnd = timeEnd;
@@ -29,13 +31,13 @@ namespace appOrganizer.Organizer.Tasks
 
         public string Title
         {
-            get { return _title; }
+            get { return  _title; }
             set
             {
                 if (value == null || value == "")
                     throw new ArgumentNullException();
 
-                _title = value;
+                _title = Helper.TextToStandart(value);
             }
         }
 
@@ -45,9 +47,12 @@ namespace appOrganizer.Organizer.Tasks
             set
             {
                 if (value == null || value == "")
-                    throw new ArgumentNullException();
+                {
+                    _textTask = "";
+                    return;
+                }
 
-                _textTask = value;
+                _textTask = Helper.TextToStandart(value);
             }
         }
 

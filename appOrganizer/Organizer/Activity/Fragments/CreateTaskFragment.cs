@@ -10,9 +10,26 @@ namespace appOrganizer.Organizer.Activity.Fragments
     public class CreateTaskFragment : Fragment
     {
         private MainActivity MainActivity;
+
+        private bool _isEditTask;
+        private int _indexEditTask;
+
+        private EditText _title;
+        private EditText _textTask;
+        private Spinner _prioritySpinner;
+
         public CreateTaskFragment(MainActivity activity)
         {
             MainActivity = activity;
+        }
+
+        public void EditTask(int indexTask)
+        {
+            _title.Text = OrganizerState.ListTasks[indexTask].Title;
+            _textTask.Text = OrganizerState.ListTasks[indexTask].TextTask;
+            _prioritySpinner.SetSelection(OrganizerState.ListTasks[indexTask].Priority - 1);
+            _isEditTask = true;
+            _indexEditTask = indexTask;
         }
 
         public override void OnCreate (Bundle savedInstanceState)
@@ -24,23 +41,27 @@ namespace appOrganizer.Organizer.Activity.Fragments
         {
             View view = inflater.Inflate(Resource.Layout.create_task_layout, container, false);
 
-            EditText title = view.FindViewById<EditText>(Resource.Id.TitleTaskEditText);
-            EditText textTask = view.FindViewById<EditText>(Resource.Id.TextTaskEditText);
-            Spinner prioritySpinner = view.FindViewById<Spinner>(Resource.Id.PrioritySpinner);
+            _title = view.FindViewById<EditText>(Resource.Id.TitleTaskEditText);
+            _textTask = view.FindViewById<EditText>(Resource.Id.TextTaskEditText);
+            _prioritySpinner = view.FindViewById<Spinner>(Resource.Id.PrioritySpinner);
 
-            prioritySpinner.SetSelection(4);
+            _prioritySpinner.SetSelection(4);
 
             view.FindViewById<Button>(Resource.Id.OkCreateTaskButton).Click += delegate
             {
-                if (title.Text.Length == 0)
+                if (_title.Text.Length == 0)
                     return;
 
-                OrganizerState.ListTasks.AddTask(title.Text, textTask.Text);
+                if (_isEditTask == true)
+                    OrganizerState.ListTasks.ReplaceTask(_indexEditTask, new Tasks.Task(_title.Text, _textTask.Text));
+                else
+                    OrganizerState.ListTasks.AddTask(_title.Text, _textTask.Text);
+
                 MainActivity.LoadLastState();
 
-                title.Text = "";
-                textTask.Text = "";
-                prioritySpinner.SetSelection(4);
+                _title.Text = "";
+                _textTask.Text = "";
+                _prioritySpinner.SetSelection(4);
             };
 
             view.FindViewById<Button>(Resource.Id.CancelCreateTaskButton).Click += delegate

@@ -1,5 +1,6 @@
 ﻿using Android.App;
 using Android.OS;
+using Android.Runtime;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
@@ -21,15 +22,15 @@ namespace appOrganizer
         private Button TimerButton;
         private Button AccountButton;
 
-        private Button AddTaskButton;
+        private Button CreateTaskButton;
 
-        private Fragment CalendarFragment;
-        private Fragment ScheduleFragment;
-        private Fragment ListTasksFragment;
-        private Fragment TimerFragment;
-        private Fragment AccountFragment;
+        private CalendarFragment CalendarFragment;
+        private ScheduleFragment ScheduleFragment;
+        private ListTasksFragment ListTasksFragment;
+        private TimerFragment TimerFragment;
+        private AccountFragment AccountFragment;
 
-        private Fragment CreateTaskFragment;
+        private CreateTaskFragment CreateTaskFragment;
 
         private Fragment CurrentFragment;
 
@@ -47,7 +48,7 @@ namespace appOrganizer
             TimerButton = FindViewById<Button>(Resource.Id.TimerButton);
             AccountButton = FindViewById<Button>(Resource.Id.AccountButton);
 
-            AddTaskButton = FindViewById<Button>(Resource.Id.AddTaskButton);
+            CreateTaskButton = FindViewById<Button>(Resource.Id.AddTaskButton);
 
             Server.LoadData();
 
@@ -87,56 +88,40 @@ namespace appOrganizer
         {
             CalendarButton.Click += delegate
             {
-                SaveLastState();
-
-                AddTaskButton.Visibility = ViewStates.Gone;
-                ShowFragment(CalendarFragment);
+                ButtonEvent(ViewStates.Gone, CalendarFragment);
             };
-
             ScheduleButton.Click += delegate
             {
-                SaveLastState();
-
-                AddTaskButton.Visibility = ViewStates.Gone;
-                ShowFragment(ScheduleFragment);
+                ButtonEvent(ViewStates.Gone, ScheduleFragment);
             };
-
             ListTasksButton.Click += delegate
             {
-                SaveLastState();
-
-                AddTaskButton.Visibility = ViewStates.Visible;
-                ShowFragment(ListTasksFragment);
+                ButtonEvent(ViewStates.Visible, ListTasksFragment);
             };
-
             TimerButton.Click += delegate
             {
-                SaveLastState();
-
-                AddTaskButton.Visibility = ViewStates.Gone;
-                ShowFragment(TimerFragment);
+                ButtonEvent(ViewStates.Gone, TimerFragment);
             };
-
             AccountButton.Click += delegate
             {
-                SaveLastState();
-
-                AddTaskButton.Visibility = ViewStates.Gone;
-                ShowFragment(AccountFragment);
+                ButtonEvent(ViewStates.Gone, AccountFragment);
             };
-
-            AddTaskButton.Click += delegate
+            CreateTaskButton.Click += delegate
             {
-                SaveLastState();
-
-                AddTaskButton.Visibility = ViewStates.Gone;
-                ShowFragment(CreateTaskFragment);
+                ButtonEvent(ViewStates.Gone, CreateTaskFragment);
             };
         }
 
-        private void ShowFragment (Fragment fragment)
+        public void ButtonEvent(ViewStates visibleState, Fragment fragment)
         {
-            if (fragment.IsVisible)
+            SaveLastState();
+            CreateTaskButton.Visibility = visibleState;
+            ShowFragment(fragment);
+        }
+
+        private void ShowFragment (Fragment fragment, bool update = false)
+        {
+            if (fragment.IsVisible && update == false)
                 return;
 
             var FragmentTransaction = SupportFragmentManager.BeginTransaction();
@@ -144,25 +129,44 @@ namespace appOrganizer
             FragmentTransaction.Hide(CurrentFragment);
             FragmentTransaction.Show(fragment);
             CurrentFragment = fragment;
-            
+
+            if (fragment == ListTasksFragment)
+            {
+                ListTasksFragment.UpdateListTasks();
+            }
+
             FragmentTransaction.AddToBackStack(null);
             FragmentTransaction.Commit();
         }
 
         private void SaveLastState ()
         {
-            LastAddTaskButtonState = AddTaskButton.Visibility;
+            LastAddTaskButtonState = CreateTaskButton.Visibility;
             LastFragment = CurrentFragment;
-            Log.Debug("SaveLastState", LastAddTaskButtonState + " " + LastFragment);
         }
 
         public void LoadLastState ()
         {
-            AddTaskButton.Visibility = LastAddTaskButtonState;
-            if (LastFragment != null)
-                ShowFragment(LastFragment);
+            if (LastFragment == null)
+                return;
 
-            Log.Debug("LoadLastState", LastAddTaskButtonState + " " + LastFragment);
+            CreateTaskButton.Visibility = LastAddTaskButtonState;
+            ShowFragment(LastFragment);
+        }
+
+        public void EditTask(int index)
+        {
+            SaveLastState();
+
+            CreateTaskButton.Visibility = ViewStates.Gone;
+            (CreateTaskFragment as CreateTaskFragment).EditTask(index);
+            ShowFragment(CreateTaskFragment);
+        }
+
+        public void DeleteTask (int index)
+        {
+            OrganizerState.ListTasks.DeleteTask(index);
+            ShowFragment(CurrentFragment, true);
         }
 
         public override void OnBackPressed ()

@@ -4,6 +4,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using appOrganizer.Organizer.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,6 +38,11 @@ namespace appOrganizer.Organizer.Tasks
         public void DeleteTask(int index)
         {
             _tasks.RemoveAt(index);
+        }
+
+        public void ReplaceTask (int indexOldTask, Task newTask)
+        {
+            _tasks[indexOldTask] = newTask;
         }
 
         public override string ToString ()
