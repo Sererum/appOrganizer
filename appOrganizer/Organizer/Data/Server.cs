@@ -10,15 +10,13 @@ namespace appOrganizer.Organizer.Data
         public static void SaveData ()
         {
             _preferencesEdit.PutString("ListTasks", OrganizerState.ListTasks.ToString());
-
             _preferencesEdit.Commit();
         }
 
         public static void LoadData ()
         {
             // OrganaizerState.ListTasks = new Tasks.ListTasks(_preferences.GetString("ListTasks", ""));
-            OrganizerState.ListTasks = new Tasks.ListTasks("Task═Text═5═000001012000═592331123000╬Task2═Text═5═000001012000═592331123000");
-            //OrganaizerState.ListTasks = new Tasks.ListTasks("");
+            OrganizerState.ListTasks = new Tasks.ListTasks("Task A═Warning═9═000001012000═592331123000╬Task F═Pass═3═000001012000═592331123000");
         }
     }
 }

@@ -1,8 +1,8 @@
-﻿using Android.App;
-using Android.OS;
+﻿using Android.OS;
 using Android.Views;
 using Android.Widget;
 using appOrganizer.Organizer.Data;
+
 using Fragment = AndroidX.Fragment.App.Fragment;
 
 namespace appOrganizer.Organizer.Activity.Fragments
@@ -49,9 +49,12 @@ namespace appOrganizer.Organizer.Activity.Fragments
 
             view.FindViewById<Button>(Resource.Id.OkCreateTaskButton).Click += delegate
             {
-                if (_title.Text.Length == 0)
+                if (Helper.TextToStandart(_title.Text).Length == 0)
+                {
+                    _title.Text = "";
                     return;
-
+                }
+                    
                 if (_isEditTask == true)
                     OrganizerState.ListTasks.DeleteTask(_indexEditTask);
                     

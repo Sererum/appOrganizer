@@ -1,13 +1,4 @@
-﻿using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System;
 
 namespace appOrganizer.Organizer.Tasks
 {
@@ -31,14 +22,13 @@ namespace appOrganizer.Organizer.Tasks
         public Time (string time)
         {
             if (time.Length != 12)
-                throw new ArgumentNullException();
+                throw new ArgumentException();
 
             _minute = Byte.Parse(time.Substring(0, 2));
             _hour = Byte.Parse(time.Substring(2, 2));
             _day = Byte.Parse(time.Substring(4, 2));
             _mounth = Byte.Parse(time.Substring(6, 2));
             _year = Int32.Parse(time.Substring(8, 2));
-
         }
 
         public byte Minute
@@ -139,8 +129,8 @@ namespace appOrganizer.Organizer.Tasks
                 0 <= _day && _day <= 31 &&
                 0 <= _mounth && _mounth <= 12 &&
                 (_year == 0 || 2000 <= _year && _year <= 3000))
-
                 return true;
+
             return false;
         }
     }

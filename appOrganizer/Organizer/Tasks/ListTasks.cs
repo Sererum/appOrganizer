@@ -1,15 +1,4 @@
-﻿using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Util;
-using Android.Views;
-using Android.Widget;
-using appOrganizer.Organizer.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace appOrganizer.Organizer.Tasks
 {
@@ -26,8 +15,8 @@ namespace appOrganizer.Organizer.Tasks
 
             string[] arrayTasks = listTask.Split('╬');
 
-            foreach (string task in arrayTasks)
-                _tasks.Add(new Task(task));
+            foreach (string sTask in arrayTasks)
+                _tasks.Add(new Task(sTask));
 
             SortList();
         }

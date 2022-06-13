@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace appOrganizer.Organizer.Data
 {
@@ -10,23 +9,19 @@ namespace appOrganizer.Organizer.Data
             if (text == "" || text == null)
                 throw new ArgumentNullException();
 
-            string[] arrayWords = text.Split(' ');
-            List<string> listWords = new List<string>();
+            string[] arrayWords = text.Split();
+            string final = arrayWords[0];
 
-            foreach (string word in arrayWords)
+            foreach (string word in arrayWords[1..])
             {
-                if (word == "" || word == " " || word == "\n")
+                if (word == "")
                     continue;
-                listWords.Add(word);
+                final += " " + word;
             }
 
-            string finalText = String.Join(" ", listWords.ToArray());
-
-            if (finalText.Length > 1)
-                return finalText[0].ToString().ToUpper() + finalText[1..].ToLower();
-            if (finalText.Length == 1)
-                return finalText[0].ToString().ToUpper();
-            return "";
+            if (final.Length == 0)
+                return "";
+            return final[0].ToString().ToUpper() + final[1..];
         }
     }
 }

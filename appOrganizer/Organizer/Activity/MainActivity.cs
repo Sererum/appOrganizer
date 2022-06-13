@@ -1,7 +1,5 @@
 ﻿using Android.App;
 using Android.OS;
-using Android.Runtime;
-using Android.Util;
 using Android.Views;
 using Android.Widget;
 using AndroidX.AppCompat.App;
@@ -42,14 +40,6 @@ namespace appOrganizer
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.activity_main);
 
-            CalendarButton = FindViewById<Button>(Resource.Id.CalendarButton);
-            ScheduleButton = FindViewById<Button>(Resource.Id.ScheduleButton);
-            ListTasksButton = FindViewById<Button>(Resource.Id.ListTasksButton);
-            TimerButton = FindViewById<Button>(Resource.Id.TimerButton);
-            AccountButton = FindViewById<Button>(Resource.Id.AccountButton);
-
-            CreateTaskButton = FindViewById<Button>(Resource.Id.AddTaskButton);
-
             Server.LoadData();
 
             InitFragments(savedInstanceState);
@@ -66,18 +56,19 @@ namespace appOrganizer
 
             CreateTaskFragment = new CreateTaskFragment(this);
 
-            CurrentFragment = ListTasksFragment;
+            CurrentFragment = ListTasksFragment; // Start fragment
 
             var FragmentTransaction = SupportFragmentManager.BeginTransaction();
 
             if (savedInstanceState == null)
             {
-                FragmentTransaction.Add(Resource.Id.FragmentLayout, CalendarFragment).Hide(CalendarFragment);
-                FragmentTransaction.Add(Resource.Id.FragmentLayout, ScheduleFragment).Hide(ScheduleFragment);
-                FragmentTransaction.Add(Resource.Id.FragmentLayout, ListTasksFragment).Hide(ListTasksFragment);
-                FragmentTransaction.Add(Resource.Id.FragmentLayout, TimerFragment).Hide(TimerFragment);
-                FragmentTransaction.Add(Resource.Id.FragmentLayout, AccountFragment).Hide(AccountFragment);
-                FragmentTransaction.Add(Resource.Id.FragmentLayout, CreateTaskFragment).Hide(CreateTaskFragment);
+                Fragment[] fragments = { 
+                    CalendarFragment, ScheduleFragment, ListTasksFragment, TimerFragment, AccountFragment, CreateTaskFragment 
+                };
+                
+                foreach (Fragment fragment in fragments)
+                    FragmentTransaction.Add(Resource.Id.FragmentLayout, fragment).Hide(fragment);
+
                 FragmentTransaction.Commit();
             }
 
@@ -86,30 +77,20 @@ namespace appOrganizer
 
         private void InitButtons ()
         {
-            CalendarButton.Click += delegate
-            {
-                ButtonEvent(ViewStates.Gone, CalendarFragment);
-            };
-            ScheduleButton.Click += delegate
-            {
-                ButtonEvent(ViewStates.Gone, ScheduleFragment);
-            };
-            ListTasksButton.Click += delegate
-            {
-                ButtonEvent(ViewStates.Visible, ListTasksFragment);
-            };
-            TimerButton.Click += delegate
-            {
-                ButtonEvent(ViewStates.Gone, TimerFragment);
-            };
-            AccountButton.Click += delegate
-            {
-                ButtonEvent(ViewStates.Gone, AccountFragment);
-            };
-            CreateTaskButton.Click += delegate
-            {
-                ButtonEvent(ViewStates.Gone, CreateTaskFragment);
-            };
+            CalendarButton = FindViewById<Button>(Resource.Id.CalendarButton);
+            ScheduleButton = FindViewById<Button>(Resource.Id.ScheduleButton);
+            ListTasksButton = FindViewById<Button>(Resource.Id.ListTasksButton);
+            TimerButton = FindViewById<Button>(Resource.Id.TimerButton);
+            AccountButton = FindViewById<Button>(Resource.Id.AccountButton);
+
+            CreateTaskButton = FindViewById<Button>(Resource.Id.AddTaskButton);
+
+            CalendarButton.Click += delegate { ButtonEvent(ViewStates.Gone, CalendarFragment); };
+            ScheduleButton.Click += delegate { ButtonEvent(ViewStates.Gone, ScheduleFragment); };
+            ListTasksButton.Click += delegate { ButtonEvent(ViewStates.Visible, ListTasksFragment); };
+            TimerButton.Click += delegate { ButtonEvent(ViewStates.Gone, TimerFragment); };
+            AccountButton.Click += delegate { ButtonEvent(ViewStates.Gone, AccountFragment); };
+            CreateTaskButton.Click += delegate { ButtonEvent(ViewStates.Gone, CreateTaskFragment); };
         }
 
         public void ButtonEvent(ViewStates visibleState, Fragment fragment)
@@ -131,9 +112,7 @@ namespace appOrganizer
             CurrentFragment = fragment;
 
             if (fragment == ListTasksFragment)
-            {
                 ListTasksFragment.UpdateListTasks();
-            }
 
             FragmentTransaction.AddToBackStack(null);
             FragmentTransaction.Commit();
@@ -157,7 +136,6 @@ namespace appOrganizer
         public void EditTask(int index)
         {
             SaveLastState();
-
             CreateTaskButton.Visibility = ViewStates.Gone;
             (CreateTaskFragment as CreateTaskFragment).EditTask(index);
             ShowFragment(CreateTaskFragment);

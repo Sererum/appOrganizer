@@ -1,5 +1,4 @@
-﻿using Android.Util;
-using appOrganizer.Organizer.Data;
+﻿using appOrganizer.Organizer.Data;
 using System;
 
 namespace appOrganizer.Organizer.Tasks
@@ -100,7 +99,7 @@ namespace appOrganizer.Organizer.Tasks
             set { _isCompleted = (_isCompleted == false); }
         }
 
-        public int CompareTo (Task task)
+        public int CompareTo (Task task) // must finished
         {
             if (_isCompleted != task.Completed)
                 return _isCompleted == true ? 1 : -1;

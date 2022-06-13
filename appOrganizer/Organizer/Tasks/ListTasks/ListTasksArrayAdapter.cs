@@ -1,9 +1,7 @@
 ﻿using Android.Graphics;
-using Android.Util;
 using Android.Views;
 using Android.Widget;
 using appOrganizer.Organizer.Data;
-using System;
 
 namespace appOrganizer.Organizer.Tasks
 {
@@ -26,7 +24,6 @@ namespace appOrganizer.Organizer.Tasks
         public override Task this[int position]
         {
             get { return OrganizerState.ListTasks[position]; }
-            
         }
 
         public override int Count
@@ -58,30 +55,50 @@ namespace appOrganizer.Organizer.Tasks
                 holder = (ViewHolder) view.GetTag(Resource.String.key_holder);
             }
 
-            view.LongClick += delegate
+            view.LongClick += delegate { LongClickViewEvent(view, position); };
+
+            InitCheckBox(holder, position);
+
+            holder.NameTaskView.Text = OrganizerState.ListTasks[position].Title;
+            holder.TextTaskView.Text = OrganizerState.ListTasks[position].TextTask;
+
+            return view;
+        }
+
+        private void ChangeTextStyle(ViewHolder holder, int position)
+        {
+            PaintFlags nowPaintFlag = holder.CompleteCheckBox.Checked == true ? PaintFlags.StrikeThruText : PaintFlags.LinearText;
+
+            holder.NameTaskView.PaintFlags = nowPaintFlag;
+            holder.TextTaskView.PaintFlags = nowPaintFlag;
+        }
+
+        private void LongClickViewEvent (View view, int position)
+        {
+            PopupMenu popup = new PopupMenu(_context, view);
+            popup.MenuInflater.Inflate(Resource.Menu.task_item_context_menu, popup.Menu);
+            popup.Show();
+
+            popup.MenuItemClick += (object sender, PopupMenu.MenuItemClickEventArgs e) =>
             {
-                PopupMenu popup = new PopupMenu(_context, view);
-                popup.MenuInflater.Inflate(Resource.Menu.task_item_context_menu, popup.Menu);
-                popup.Show();
-
-                popup.MenuItemClick += (object sender, PopupMenu.MenuItemClickEventArgs e) =>
+                switch (e.Item.ItemId)
                 {
-                    switch (e.Item.ItemId)
+                    case Resource.Id.ListTasksEventEdit:
                     {
-                        case Resource.Id.edit:
-                        {
-                            (_context as MainActivity).EditTask(position);
-                            break;
-                        }
-                        case Resource.Id.delete:
-                        {
-                            (_context as MainActivity).DeleteTask(position);
-                            break;
-                        }
+                        (_context as MainActivity).EditTask(position);
+                        break;
                     }
-                };
+                    case Resource.Id.ListTasksEventDelete:
+                    {
+                        (_context as MainActivity).DeleteTask(position);
+                        break;
+                    }
+                }
             };
+        }
 
+        private void InitCheckBox (ViewHolder holder, int position)
+        {
             holder.CompleteCheckBox.Checked = OrganizerState.ListTasks[position].Completed;
             ChangeTextStyle(holder, position);
 
@@ -97,19 +114,6 @@ namespace appOrganizer.Organizer.Tasks
                 OrganizerState.ListTasks.SortList();
                 (_context as MainActivity).UpdateFragment();
             };
-
-            holder.NameTaskView.Text = OrganizerState.ListTasks[position].Title;
-            holder.TextTaskView.Text = OrganizerState.ListTasks[position].TextTask;
-
-            return view;
-        }
-
-        private void ChangeTextStyle(ViewHolder holder, int position)
-        {
-            PaintFlags nowPaintFlag = holder.CompleteCheckBox.Checked == true ? PaintFlags.StrikeThruText : PaintFlags.LinearText;
-
-            holder.NameTaskView.PaintFlags = nowPaintFlag;
-            holder.TextTaskView.PaintFlags = nowPaintFlag;
         }
     }
 }

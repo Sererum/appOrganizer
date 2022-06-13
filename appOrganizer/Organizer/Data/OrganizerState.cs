@@ -1,14 +1,5 @@
-﻿using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
-using appOrganizer.Organizer.Tasks;
+﻿using appOrganizer.Organizer.Tasks;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace appOrganizer.Organizer.Data
 {
