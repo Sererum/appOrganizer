@@ -14,6 +14,8 @@ namespace appOrganizer.Organizer.Tasks
         private Time _timeStart;
         private Time _timeEnd;
 
+        private bool _isCompleted = false;
+
         public Task (string title, string textTask, Time timeStart, Time timeEnd, byte priority = 5)
         {
             Title = title;
@@ -28,10 +30,10 @@ namespace appOrganizer.Organizer.Tasks
 
         public Task (string label, string textTask, byte priority = 5) : this(label, textTask, new Time("000000000000"), new Time("000000000000"), priority)
         { }
-
+        
         public string Title
         {
-            get { return  _title; }
+            get { return _title; }
             set
             {
                 if (value == null || value == "")
@@ -90,6 +92,27 @@ namespace appOrganizer.Organizer.Tasks
 
                 _timeEnd = value;
             }
+        }
+
+        public bool Completed
+        {
+            get { return _isCompleted; }
+            set { _isCompleted = (_isCompleted == false); }
+        }
+
+        public int CompareTo (Task task)
+        {
+            if (_isCompleted != task.Completed)
+                return _isCompleted == true ? 1 : -1;
+
+            if (OrganizerState.SortByName == true)
+            {
+                string[] titleArray = { Title, task.Title };
+                Array.Sort(titleArray);
+
+                return Title != titleArray[0] ? 1 : -1;
+            }
+            return 0;
         }
 
         public override string ToString ()

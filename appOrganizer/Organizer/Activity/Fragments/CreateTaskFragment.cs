@@ -53,9 +53,9 @@ namespace appOrganizer.Organizer.Activity.Fragments
                     return;
 
                 if (_isEditTask == true)
-                    OrganizerState.ListTasks.ReplaceTask(_indexEditTask, new Tasks.Task(_title.Text, _textTask.Text));
-                else
-                    OrganizerState.ListTasks.AddTask(_title.Text, _textTask.Text);
+                    OrganizerState.ListTasks.DeleteTask(_indexEditTask);
+                    
+                OrganizerState.ListTasks.AddTask(_title.Text, _textTask.Text);
 
                 MainActivity.LoadLastState();
 

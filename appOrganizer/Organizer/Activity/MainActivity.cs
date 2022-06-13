@@ -166,6 +166,11 @@ namespace appOrganizer
         public void DeleteTask (int index)
         {
             OrganizerState.ListTasks.DeleteTask(index);
+            UpdateFragment();
+        }
+
+        public void UpdateFragment()
+        {
             ShowFragment(CurrentFragment, true);
         }
 

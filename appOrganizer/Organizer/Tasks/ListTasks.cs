@@ -2,6 +2,7 @@
 using Android.Content;
 using Android.OS;
 using Android.Runtime;
+using Android.Util;
 using Android.Views;
 using Android.Widget;
 using appOrganizer.Organizer.Data;
@@ -15,11 +16,32 @@ namespace appOrganizer.Organizer.Tasks
     public class ListTasks
     {
         private List<Task> _tasks;
-        public ListTasks ()
+
+        public ListTasks (string listTask = "")
         {
             _tasks = new List<Task>();
+
+            if (listTask == "")
+                return;
+
+            string[] arrayTasks = listTask.Split('╬');
+
+            foreach (string task in arrayTasks)
+                _tasks.Add(new Task(task));
+
+            SortList();
         }
 
+        public override string ToString ()
+        {
+            string listTask = "";
+
+            foreach (Task task in _tasks)
+                listTask += task.ToString() + "╬";
+
+            return listTask[..^1];
+        }
+        
         public Task this[int position]
         {
             get { return _tasks[position]; }
@@ -33,39 +55,23 @@ namespace appOrganizer.Organizer.Tasks
         public void AddTask(string label, string textTask)
         {
             _tasks.Add(new Task(label, textTask));
+            SortList();
         }
 
-        public void DeleteTask(int index)
+        public void DeleteTask(int position)
         {
-            _tasks.RemoveAt(index);
+            _tasks.RemoveAt(position);
         }
 
-        public void ReplaceTask (int indexOldTask, Task newTask)
+        public void CompleteTask(bool complete, int position)
         {
-            _tasks[indexOldTask] = newTask;
+            _tasks[position].Completed = complete;
+            SortList();
         }
 
-        public override string ToString ()
+        public void SortList ()
         {
-            string listTask = "";
-
-            foreach (Task task in _tasks)
-                listTask += task.ToString() + "╬";
-
-            return listTask[..^1];
-        }
-
-        public ListTasks(string listTask)
-        {
-            _tasks = new List<Task>();
-
-            if (listTask == "")
-                return;
-
-            string[] arrayTasks = listTask.Split('╬');
-
-            foreach (string task in arrayTasks)
-                _tasks.Add(new Task(task));
+            _tasks.Sort((taskOne, taskTwo) => taskOne.CompareTo(taskTwo));
         }
     }
 }

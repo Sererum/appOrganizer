@@ -1,61 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#999"
-    android:padding="2dp"
+    android:background="#000"
     >
 
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:background="#FFF"
-        android:padding="6dp"
-        />
-
     <LinearLayout
-        android:orientation="vertical"
+        android:id="@+id/TaskItemBackgroundLayout"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#CCC"
+        android:background="#FFF"
+        android:layout_margin="2dp"
         >
+    
+        <CheckBox
+            android:id="@+id/CompleteCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:padding="6dp"
+            />
 
-        <TextView
-            android:id="@+id/NameTaskTextView"
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="30sp"
-            android:textColor="#000"
-            android:background="#FFF"
-            
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:paddingTop="2dp"
-            android:paddingBottom="4dp"
-            
-            android:layout_marginBottom="1dp"
-            
-            android:text="Task"
-        />
+            >
 
-        <TextView
-            android:id="@+id/TextTaskTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:textColor="#000"
-            android:background="#FFF"
+            <TextView
+                android:id="@+id/NameTaskTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="30sp"
+                android:textColor="#000"
             
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:paddingTop="1dp"
-            android:paddingBottom="2dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="2dp"
+                android:paddingBottom="4dp"
             
-            android:text="Text task"
-        />
+                android:layout_marginBottom="1dp"
+            
+                android:text="Task"
+            />
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#AAA"
+                android:height="1dp"
+                />
+
+            <TextView
+                android:id="@+id/TextTaskTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textColor="#000"
+            
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="1dp"
+                android:paddingBottom="2dp"
+            
+                android:text="Text task"
+            />
+
+        </LinearLayout>
+    
     </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>

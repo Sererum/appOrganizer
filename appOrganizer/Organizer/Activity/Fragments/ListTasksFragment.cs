@@ -38,16 +38,5 @@ namespace appOrganizer.Organizer.Activity.Fragments
         {
             TaskList.Adapter = new ListTasksArrayAdapter(_context);
         }
-        public override void OnSaveInstanceState (Bundle outState)
-        {
-            Log.Debug("___________________________", "Resume");
-            base.OnSaveInstanceState(outState);
-        }
-
-        public override void OnStart ()
-        {
-            Log.Debug("___________________________", "Start");
-            base.OnStart();
-        }
     }
 }
