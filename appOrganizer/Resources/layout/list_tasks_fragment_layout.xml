@@ -6,6 +6,32 @@
     android:id="@+id/ListTasksFragmentLayout"
     >
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        >
+
+        <Spinner
+            android:id="@+id/DateListSpinner"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_margin="4dp"
+            
+            />
+
+        <ImageButton
+            android:id="@+id/SortListImageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            
+            android:background="@android:drawable/ic_menu_sort_by_size"
+            />
+
+    </RelativeLayout>
+
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

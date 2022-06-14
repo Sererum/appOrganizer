@@ -25,21 +25,16 @@ namespace appOrganizer.Organizer.Activity.Fragments
 
         public void EditTask(int indexTask)
         {
-            _title.Text = OrganizerState.ListTasks[indexTask].Title;
-            _textTask.Text = OrganizerState.ListTasks[indexTask].TextTask;
-            _prioritySpinner.SetSelection(OrganizerState.ListTasks[indexTask].Priority - 1);
+            _title.Text = State.ListTasks[indexTask].Title;
+            _textTask.Text = State.ListTasks[indexTask].TextTask;
+            _prioritySpinner.SetSelection(State.ListTasks[indexTask].Priority - 1);
             _isEditTask = true;
             _indexEditTask = indexTask;
         }
 
-        public override void OnCreate (Bundle savedInstanceState)
-        {
-            base.OnCreate(savedInstanceState);
-        }
-
         public override View OnCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-            View view = inflater.Inflate(Resource.Layout.create_task_layout, container, false);
+            View view = inflater.Inflate(Resource.Layout.create_task_fragment, container, false);
 
             _title = view.FindViewById<EditText>(Resource.Id.TitleTaskEditText);
             _textTask = view.FindViewById<EditText>(Resource.Id.TextTaskEditText);
@@ -56,9 +51,13 @@ namespace appOrganizer.Organizer.Activity.Fragments
                 }
                     
                 if (_isEditTask == true)
-                    OrganizerState.ListTasks.DeleteTask(_indexEditTask);
+                    State.ListTasks.DeleteTask(_indexEditTask);
                     
-                OrganizerState.ListTasks.AddTask(_title.Text, _textTask.Text);
+                State.ListTasks.AddTask(new Tasks.Task(
+                    title: _title.Text, 
+                    textTask: _textTask.Text, 
+                    priority: (byte) (_prioritySpinner.SelectedItemId + 1))
+                    );
 
                 MainActivity.LoadLastState();
 

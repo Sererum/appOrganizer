@@ -2,7 +2,8 @@
     <string name="app_name">appOrganizer</string>
     <string name="action_settings">Settings</string>
 
-	<string name="key_holder">key</string>
+	<string name="key_ListTasksAA">1</string>
+	<string name="key_DateListAA">1</string>
 
 	<string-array name="numbers_1_by_9">
 		<item>1</item>

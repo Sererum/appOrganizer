@@ -69,12 +69,13 @@
     <Compile Include="Organizer\Activity\Fragments\TimerFragment.cs" />
     <Compile Include="Organizer\Activity\MainActivity.cs" />
     <Compile Include="Organizer\Data\Helper.cs" />
-    <Compile Include="Organizer\Data\OrganizerState.cs" />
+    <Compile Include="Organizer\Data\State.cs" />
     <Compile Include="Organizer\Data\Server.cs" />
     <Compile Include="Organizer\Tasks\ListTasks.cs" />
-    <Compile Include="Organizer\Tasks\ListTasks\ListTasksArrayAdapter.cs" />
+    <Compile Include="Organizer\Tasks\ListTasksAdapters\DateListArrayAdapter.cs" />
+    <Compile Include="Organizer\Tasks\ListTasksAdapters\ListTasksArrayAdapter.cs" />
+    <Compile Include="Organizer\Tasks\ListTasksAdapters\Periods.cs" />
     <Compile Include="Organizer\Tasks\Task.cs" />
-    <Compile Include="Organizer\Tasks\Time.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -110,7 +111,9 @@
     <AndroidResource Include="Resources\mipmap-xxxhdpi\ic_launcher_round.png" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Resources\drawable\" />
+    <AndroidResource Include="Resources\layout\date_list_item.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Xamarin.AndroidX.AppCompat" Version="1.2.0.5" />
@@ -143,12 +146,12 @@
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\task_item_list.xml">
+    <AndroidResource Include="Resources\layout\task_list_item.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\create_task_layout.xml">
+    <AndroidResource Include="Resources\layout\create_task_fragment.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

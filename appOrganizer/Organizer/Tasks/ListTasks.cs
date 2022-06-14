@@ -28,6 +28,8 @@ namespace appOrganizer.Organizer.Tasks
             foreach (Task task in _tasks)
                 listTask += task.ToString() + "╬";
 
+            if (listTask.Length == 0)
+                return "";
             return listTask[..^1];
         }
         
@@ -41,9 +43,9 @@ namespace appOrganizer.Organizer.Tasks
             get { return _tasks.Count; }
         }
 
-        public void AddTask(string label, string textTask)
+        public void AddTask(Task task)
         {
-            _tasks.Add(new Task(label, textTask));
+            _tasks.Add(task);
             SortList();
         }
 

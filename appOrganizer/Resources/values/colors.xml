@@ -3,4 +3,15 @@
     <color name="colorPrimary">#2c3e50</color>
     <color name="colorPrimaryDark">#1B3147</color>
     <color name="colorAccent">#3498db</color>
+
+	<color name="priorityOne">#69F7FF</color>
+	<color name="priorityTwo">#2BC9FC</color>
+	<color name="priorityThree">#1F83FF</color>
+	<color name="priorityFour">#7C1BFF</color>
+	<color name="priorityFive">#A53CFD</color>
+	<color name="prioritySix">#C960FF</color>
+	<color name="prioritySeven">#FF6767</color>
+	<color name="priorityEight">#FE3E30</color>
+	<color name="priorityNine">#FB0200</color>
+	
 </resources>

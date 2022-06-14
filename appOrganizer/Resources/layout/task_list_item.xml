@@ -19,13 +19,27 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:padding="6dp"
+            android:paddingRight="8dp"
+            />
+
+        <TextView
+            android:id="@+id/PriorityTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            
+            android:gravity="center"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            
+            android:textColor="#AAA"
+            android:text="0"
             />
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
             >
 
             <TextView

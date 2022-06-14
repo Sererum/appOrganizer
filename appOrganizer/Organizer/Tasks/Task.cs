@@ -1,4 +1,5 @@
-﻿using appOrganizer.Organizer.Data;
+﻿using Android.Util;
+using appOrganizer.Organizer.Data;
 using System;
 
 namespace appOrganizer.Organizer.Tasks
@@ -10,26 +11,28 @@ namespace appOrganizer.Organizer.Tasks
 
         private byte _priority;
 
-        private Time _timeStart;
-        private Time _timeEnd;
-
         private bool _isCompleted = false;
 
-        public Task (string title, string textTask, Time timeStart, Time timeEnd, byte priority = 5)
+        public Task(string title, string textTask, byte priority = 5)
         {
             Title = title;
             TextTask = textTask;
-            _priority = priority;
-            _timeStart = timeStart;
-            _timeEnd = timeEnd;
+            Priority = priority;
         }
 
-        public Task (string label, string textTask, Time timeStart, byte priority = 5) : this(label, textTask, timeStart, new Time("000000000000"), priority)
-        { }
+        public Task (string task)
+        {
+            string[] arrayTask = task.Split('═');
+            _title = arrayTask[0];
+            _textTask = arrayTask[1];
+            _priority = Byte.Parse(arrayTask[2]);
+        }
 
-        public Task (string label, string textTask, byte priority = 5) : this(label, textTask, new Time("000000000000"), new Time("000000000000"), priority)
-        { }
-        
+        public override string ToString ()
+        {
+            return _title + "═" + _textTask + "═" + _priority;
+        }
+
         public string Title
         {
             get { return _title; }
@@ -69,30 +72,6 @@ namespace appOrganizer.Organizer.Tasks
             }
         }
 
-        public Time TimeStart
-        {
-            get { return _timeStart; }
-            set
-            {
-                if (value.IsRight() == false || _timeEnd != null && value.IsMoreThan(_timeEnd))
-                    throw new TimeoutException();
-
-                _timeStart = value;
-            }
-        }
-
-        public Time TimeEnd
-        {
-            get { return _timeEnd; }
-            set
-            {
-                if (value.IsRight() == false || TimeStart.IsMoreThan(value))
-                    throw new TimeoutException();
-
-                _timeEnd = value;
-            }
-        }
-
         public bool Completed
         {
             get { return _isCompleted; }
@@ -101,32 +80,13 @@ namespace appOrganizer.Organizer.Tasks
 
         public int CompareTo (Task task) // must finished
         {
-            if (_isCompleted != task.Completed)
-                return _isCompleted == true ? 1 : -1;
+            int compare = 0;
 
-            if (OrganizerState.SortByName == true)
-            {
-                string[] titleArray = { Title, task.Title };
-                Array.Sort(titleArray);
+            compare += ((_isCompleted ? 1 : 0) - (task.Completed ? 1 : 0)) * State.SortsRate[(int) State.Rate.Complete];
+            compare += (task.Priority == Priority ? 0 : (task.Priority > Priority ? 1 : -1)) * State.SortsRate[(int) State.Rate.Priority];
+            compare += (task.Title.CompareTo(Title) * -1) * State.SortsRate[(int) State.Rate.Name];
 
-                return Title != titleArray[0] ? 1 : -1;
-            }
-            return 0;
-        }
-
-        public override string ToString ()
-        {
-            return _title + "═" + _textTask + "═" + _priority + "═" + _timeStart + "═" + _timeEnd;
-        }
-
-        public Task(string task)
-        {
-            string[] arrayTask = task.Split('═');
-            _title = arrayTask[0];
-            _textTask = arrayTask[1];
-            _priority = Byte.Parse(arrayTask[2]);
-            _timeStart = new Time(arrayTask[3]);
-            _timeEnd = new Time(arrayTask[4]);
+            return compare;
         }
     }
 }
