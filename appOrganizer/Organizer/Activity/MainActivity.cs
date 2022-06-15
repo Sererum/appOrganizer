@@ -1,14 +1,10 @@
 ﻿using Android.App;
 using Android.OS;
-using Android.Runtime;
-using Android.Util;
 using Android.Views;
 using Android.Widget;
 using AndroidX.AppCompat.App;
 using appOrganizer.Organizer.Activity.Fragments;
 using appOrganizer.Organizer.Data;
-using Java.Text;
-using Java.Util;
 using System;
 using Fragment = AndroidX.Fragment.App.Fragment;
 using FragmentTransaction = AndroidX.Fragment.App.FragmentTransaction;
@@ -45,6 +41,7 @@ namespace appOrganizer
             SetContentView(Resource.Layout.activity_main);
 
             Server.LoadData();
+            //Server.LoadEmptyData();
 
             InitFragments(savedInstanceState);
             InitButtons();

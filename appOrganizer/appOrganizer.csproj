@@ -64,6 +64,9 @@
     <Compile Include="Organizer\Activity\Fragments\AccountFragment.cs" />
     <Compile Include="Organizer\Activity\Fragments\CalendarFragment.cs" />
     <Compile Include="Organizer\Activity\Fragments\CreateTaskFragment.cs" />
+    <Compile Include="Organizer\Activity\Fragments\CreateTasksFragments\ProjectTasksFragment.cs" />
+    <Compile Include="Organizer\Activity\Fragments\CreateTasksFragments\RoutineTasksFragment.cs" />
+    <Compile Include="Organizer\Activity\Fragments\CreateTasksFragments\SingleTasksFragment.cs" />
     <Compile Include="Organizer\Activity\Fragments\ListTasksFragment.cs" />
     <Compile Include="Organizer\Activity\Fragments\ScheduleFragment.cs" />
     <Compile Include="Organizer\Activity\Fragments\TimerFragment.cs" />
@@ -71,11 +74,14 @@
     <Compile Include="Organizer\Data\Helper.cs" />
     <Compile Include="Organizer\Data\State.cs" />
     <Compile Include="Organizer\Data\Server.cs" />
+    <Compile Include="Organizer\Tasks\KindTasks\ProjectTask.cs" />
+    <Compile Include="Organizer\Tasks\KindTasks\RoutineTask.cs" />
+    <Compile Include="Organizer\Tasks\KindTasks\SingleTask.cs" />
     <Compile Include="Organizer\Tasks\ListTasks.cs" />
     <Compile Include="Organizer\Tasks\ListTasksAdapters\DateListArrayAdapter.cs" />
     <Compile Include="Organizer\Tasks\ListTasksAdapters\ListTasksArrayAdapter.cs" />
     <Compile Include="Organizer\Tasks\ListTasksAdapters\Periods.cs" />
-    <Compile Include="Organizer\Tasks\Task.cs" />
+    <Compile Include="Organizer\Tasks\KindTasks\Task.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -111,7 +117,7 @@
     <AndroidResource Include="Resources\mipmap-xxxhdpi\ic_launcher_round.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\date_list_item.xml">
+    <AndroidResource Include="Resources\layout\list_item_date.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
@@ -121,42 +127,57 @@
     <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\list_tasks_fragment_layout.xml">
+    <AndroidResource Include="Resources\layout\fragment_list_tasks.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\calendar_fragment_layout.xml">
+    <AndroidResource Include="Resources\layout\fragment_calendar.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\schedule_fragment_layout.xml">
+    <AndroidResource Include="Resources\layout\fragment_schedule.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\timer_fragment_layout.xml">
+    <AndroidResource Include="Resources\layout\fragment_timer.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\account_fragment_layout.xml">
+    <AndroidResource Include="Resources\layout\fragment_account.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\task_list_item.xml">
+    <AndroidResource Include="Resources\layout\list_item_task.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\create_task_fragment.xml">
+    <AndroidResource Include="Resources\layout\fragment_create_task.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\menu\task_item_context_menu.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\fragment_create_single_task.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\fragment_create_routine_task.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\fragment_create_project_tasks.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

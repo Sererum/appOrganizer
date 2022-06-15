@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <EditText
+        android:id="@+id/TitleTaskEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColorHint="#000"
+        android:layout_marginTop="20dp"
+        
+        android:textSize="30sp"
+        android:inputType="textCapSentences"
+        
+        android:hint="Title (necessarily)"
+        
+        />
+
+    <EditText
+        android:id="@+id/TextTaskEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColorHint="#000"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/TitleTaskEditText"
+        
+        android:textSize="20sp"
+        android:inputType="textCapSentences|textMultiLine"
+        android:maxLines="4"
+        
+        android:hint="Text task"
+        
+        />
+    
+    <RadioGroup
+        android:id="@+id/KindTasksRadioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/TextTaskEditText"
+        >
+
+        <RadioButton
+            android:id="@+id/SingleTaskRadioButton" 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:textSize="20sp"
+                
+            android:text="Single Task"
+        />
+            
+        <RadioButton
+            android:id="@+id/RoutineTaskRadioButton" 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+                
+            android:text="Routine Task" 
+        />
+        
+        <RadioButton
+            android:id="@+id/ProjectTaskRadioButton" 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+                
+            android:text="Project Task"
+        />
+        
+    </RadioGroup>
+    
+
+    <RelativeLayout
+        android:id="@+id/KindFragmentLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/KindTasksRadioGroup"
+        android:layout_above="@id/OkCreateTaskButton"
+        android:layout_marginTop="10dp"
+        />
+    
+    <Button
+        android:id="@+id/CancelCreateTaskButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+            
+        android:text="Cancel"
+        />
+
+    <Button
+        android:id="@+id/OkCreateTaskButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@id/CancelCreateTaskButton"
+            
+        android:text="Ok"
+        />
+
+
+</RelativeLayout>

@@ -5,7 +5,7 @@ namespace appOrganizer.Organizer.Data
 {
     public static class Helper
     {
-        public static Dictionary<byte, int> PriorityToColorId = new Dictionary<byte, int>()
+        public static Dictionary<int, int> PriorityToColorId = new Dictionary<int, int>()
         {
             { 1, Resource.Color.priorityOne },
             { 2, Resource.Color.priorityTwo },
@@ -20,8 +20,11 @@ namespace appOrganizer.Organizer.Data
 
         public static string TextToStandart(string text)
         {
-            if (text == "" || text == null)
+            if (text == null)
                 throw new ArgumentNullException();
+
+            if (text == "")
+                return "";
 
             string[] arrayWords = text.Split();
             string final = arrayWords[0];

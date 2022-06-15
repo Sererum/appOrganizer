@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -10,16 +9,17 @@
         android:id="@+id/FragmentLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:layout_above="@id/PanelButtonsLayout"
         >
 
         <Button
             android:id="@+id/AddTaskButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Добавить\nзадачу"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
+            
+            android:text="Добавить\nзадачу"
             />
     
     </RelativeLayout>
@@ -27,16 +27,19 @@
     <LinearLayout
         android:id="@+id/PanelButtonsLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="80dp"
         android:orientation="horizontal"
-        android:layout_weight="5"
-        android:background="#AAA">
+        android:layout_alignParentBottom="true"
+        
+        android:background="#AAA"
+        >
 
         <Button
             android:id="@+id/CalendarButton"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            
             android:text="Calendar"
             />
         <Button
@@ -44,6 +47,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            
             android:text="Schedule"
             />
         <Button
@@ -51,6 +55,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            
             android:text="List Tasks"
             />
         <Button
@@ -58,6 +63,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            
             android:text="Timer"
             />
         <Button
@@ -65,9 +71,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            
             android:text="Account"
             />
 
     </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>

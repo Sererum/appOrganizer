@@ -15,7 +15,7 @@ namespace appOrganizer.Organizer.Activity.Fragments
 
         public override View OnCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-            return inflater.Inflate(Resource.Layout.schedule_fragment_layout, container, false);
+            return inflater.Inflate(Resource.Layout.fragment_schedule, container, false);
         }
     }
 }

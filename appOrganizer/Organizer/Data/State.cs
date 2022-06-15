@@ -9,12 +9,13 @@ namespace appOrganizer.Organizer.Data
 {
     public static class State
     {
-        public enum Rate { Complete, Name, Priority };
+        public enum Rate { Complete, Routine, Priority, Name };
 
         public static Dictionary<int, int> SortsRate = new Dictionary<int, int>()
         {
-            { (int) Rate.Complete, 10 },
-            { (int) Rate.Priority, 5 },
+            { (int) Rate.Complete, 8 }, 
+            { (int) Rate.Routine, 4 },
+            { (int) Rate.Priority, 2 },
             { (int) Rate.Name, 1 }
         };
 

@@ -47,7 +47,7 @@ namespace appOrganizer.Organizer.Tasks.ListTasksAdapters
 
             if (view == null)
             {
-                view = _context.LayoutInflater.Inflate(Resource.Layout.date_list_item, null);
+                view = _context.LayoutInflater.Inflate(Resource.Layout.list_item_date, null);
                 holder = new ViewHolder();
                 holder.NamePeriodView = view.FindViewById<TextView>(Resource.Id.NamePeriodTextView);
                 holder.DatePeriodView = view.FindViewById<TextView>(Resource.Id.DatePeriodTextView);

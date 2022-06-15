@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/DaysOfRoutineTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textColor="#000"
+        android:layout_margin="8dp"
+        
+        android:text="Days of Routine:"
+        />
+
+    <RadioButton
+        android:id="@+id/MondayRadioButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/DaysOfRoutineTextView"
+        android:textSize="20sp"
+        
+        android:text="M"
+        />
+
+    <RadioButton
+        android:id="@+id/TuesdayRadioButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/DaysOfRoutineTextView"
+        android:layout_toEndOf="@id/MondayRadioButton"
+        android:textSize="20sp"
+        
+        android:text="T"
+        />
+
+    <RadioButton
+        android:id="@+id/WednesdayRadioButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/DaysOfRoutineTextView"
+        android:layout_toEndOf="@id/TuesdayRadioButton"
+        android:textSize="20sp"
+        
+        android:text="W"
+        />
+
+    <RadioButton
+        android:id="@+id/ThursdayRadioButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/DaysOfRoutineTextView"
+        android:layout_toEndOf="@id/WednesdayRadioButton"
+        android:textSize="20sp"
+        
+        android:text="T"
+        />
+
+    <RadioButton
+        android:id="@+id/FridayRadioButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/DaysOfRoutineTextView"
+        android:layout_toEndOf="@id/ThursdayRadioButton"
+        android:textSize="20sp"
+        
+        android:text="F"
+        />
+
+    <RadioButton
+        android:id="@+id/SaturdayRadioButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/DaysOfRoutineTextView"
+        android:layout_toEndOf="@id/FridayRadioButton"
+        android:textSize="20sp"
+        
+        android:text="S"
+        />
+
+    <RadioButton
+        android:id="@+id/SundayRadioButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/DaysOfRoutineTextView"
+        android:layout_toEndOf="@id/SaturdayRadioButton"
+        android:textSize="20sp"
+        
+        android:text="S"
+        />
+
+
+</RelativeLayout>

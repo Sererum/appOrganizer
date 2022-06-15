@@ -21,7 +21,7 @@ namespace appOrganizer.Organizer.Activity.Fragments
 
         public override View OnCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-            View view = inflater.Inflate(Resource.Layout.list_tasks_fragment_layout, container, false);
+            View view = inflater.Inflate(Resource.Layout.fragment_list_tasks, container, false);
 
             DateListSpinner = view.FindViewById<Spinner>(Resource.Id.DateListSpinner);
             DateListSpinner.Adapter = new DateListArrayAdapter(_context);

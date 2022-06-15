@@ -3,9 +3,9 @@ using Android.Views;
 
 using Fragment = AndroidX.Fragment.App.Fragment;
 
-namespace appOrganizer.Organizer.Activity.Fragments
+namespace appOrganizer.Organizer.Activity.Fragments.CreateTasksFragments
 {
-    public class AccountFragment : Fragment
+    public class RoutineTasksFragment : Fragment
     {
         public override void OnCreate (Bundle savedInstanceState)
         {
@@ -14,7 +14,9 @@ namespace appOrganizer.Organizer.Activity.Fragments
 
         public override View OnCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-            return inflater.Inflate(Resource.Layout.fragment_account, container, false);
+            View view = inflater.Inflate(Resource.Layout.fragment_create_routine_task, container, false);
+
+            return view;
         }
     }
 }

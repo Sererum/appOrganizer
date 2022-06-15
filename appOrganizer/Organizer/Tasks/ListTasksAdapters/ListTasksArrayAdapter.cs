@@ -5,6 +5,7 @@ using Android.Views;
 using Android.Widget;
 using AndroidX.Core.Content;
 using appOrganizer.Organizer.Data;
+using appOrganizer.Organizer.Tasks.KindTasks;
 
 namespace appOrganizer.Organizer.Tasks
 {
@@ -47,7 +48,7 @@ namespace appOrganizer.Organizer.Tasks
 
             if (view == null)
             {
-                view = _context.LayoutInflater.Inflate(Resource.Layout.task_list_item, null);
+                view = _context.LayoutInflater.Inflate(Resource.Layout.list_item_task, null);
                 holder = new ViewHolder();
                 holder.NameTaskView = view.FindViewById<TextView>(Resource.Id.NameTaskTextView);
                 holder.TextTaskView = view.FindViewById<TextView>(Resource.Id.TextTaskTextView);
@@ -63,11 +64,19 @@ namespace appOrganizer.Organizer.Tasks
             view.LongClick += delegate { LongClickViewEvent(view, position); };
 
             InitCheckBox(holder, position);
-            InitPriorityTextView(holder, position);
 
             holder.NameTaskView.Text = State.ListTasks[position].Title;
             holder.TextTaskView.Text = State.ListTasks[position].TextTask;
-            
+
+            if (State.ListTasks[position] is SingleTask)
+            {
+                InitPriorityView(holder, position);
+            }
+            if (State.ListTasks[position] is RoutineTask)
+            {
+                InitPriorityView(holder, position);
+            }
+
             return view;
         }
 
@@ -123,15 +132,27 @@ namespace appOrganizer.Organizer.Tasks
             };
         }
 
-        private void InitPriorityTextView (ViewHolder holder, int position)
+        private void InitPriorityView (ViewHolder holder, int position)
         {
-            byte priorityTask = State.ListTasks[position].Priority;
-            holder.PriorityView.Text = priorityTask.ToString();
+            string text = "";
+            Color color = new Color();
 
-            Color priorityColor = new Color(ContextCompat.GetColor(_context, Helper.PriorityToColorId[priorityTask]));
-            holder.PriorityView.SetTextColor(priorityColor);
-            priorityColor.A = 25;
-            holder.PriorityView.SetBackgroundColor(priorityColor);
+            if (State.ListTasks[position] is SingleTask)
+            {
+                int priorityTask = (State.ListTasks[position] as SingleTask).Priority;
+                text = priorityTask.ToString();
+                color = new Color(ContextCompat.GetColor(_context, Helper.PriorityToColorId[priorityTask]));
+            }
+            if (State.ListTasks[position] is RoutineTask)
+            {
+                text = "->\n<-";
+                color = Color.Green;
+            }
+
+            holder.PriorityView.Text = text;
+            holder.PriorityView.SetTextColor(color);
+            color.A = 25;
+            holder.PriorityView.SetBackgroundColor(color);
         }
     }
 }

@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using Android.Util;
+using appOrganizer.Organizer.Tasks.KindTasks;
+using System;
+using System.Collections.Generic;
 
 namespace appOrganizer.Organizer.Tasks
 {
@@ -16,7 +19,26 @@ namespace appOrganizer.Organizer.Tasks
             string[] arrayTasks = listTask.Split('╬');
 
             foreach (string sTask in arrayTasks)
-                _tasks.Add(new Task(sTask));
+            {
+                switch ((Task.KindTasks) Int32.Parse(sTask[0].ToString()))
+                {
+                    case Task.KindTasks.Single:
+                    {
+                        _tasks.Add(new SingleTask(sTask));
+                        break;
+                    }
+                    case Task.KindTasks.Routine:
+                    {
+                        _tasks.Add(new RoutineTask(sTask));
+                        break;
+                    }
+                    case Task.KindTasks.Project:
+                    {
+                        _tasks.Add(new ProjectTask(sTask));
+                        break;
+                    }
+                }
+            }
 
             SortList();
         }
@@ -62,7 +84,39 @@ namespace appOrganizer.Organizer.Tasks
 
         public void SortList ()
         {
-            _tasks.Sort((taskOne, taskTwo) => taskOne.CompareTo(taskTwo));
+            _tasks.Sort((taskOne, taskTwo) => Task.CompareTo(taskOne, taskTwo));
+        }
+
+        public ListTasks CutUncompleteTasks ()
+        {
+            ListTasks listTasks = new ListTasks();
+            List<Task> deleteTasks = new List<Task>();
+
+            foreach (Task task in _tasks)
+            {
+                if (task.Completed == false)
+                {
+                    listTasks.AddTask(task);
+                    deleteTasks.Add(task);
+                }
+            }
+            foreach (Task task in deleteTasks)
+                _tasks.Remove(task);
+
+            return listTasks;
+        }
+
+        public static ListTasks operator + (ListTasks listOne, ListTasks listTwo)
+        {
+            ListTasks finalList = new ListTasks();
+
+            for (int i = 0; i < listOne.Count; i++)
+                finalList.AddTask(listOne[i]);
+
+            for (int i = 0; i < listTwo.Count; i++)
+                finalList.AddTask(listTwo[i]);
+
+            return finalList;
         }
     }
 }
