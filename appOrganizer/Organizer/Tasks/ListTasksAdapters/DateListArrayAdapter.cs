@@ -2,6 +2,7 @@
 using Android.Views;
 using Android.Widget;
 using appOrganizer.Organizer.Data;
+using Java.Util;
 using System;
 
 using static appOrganizer.Organizer.Data.Helper;
@@ -59,14 +60,21 @@ namespace appOrganizer.Organizer.Tasks.ListTasksAdapters
             }
 
             holder.NamePeriodView.Text = State.Periods.Name(position);
-            holder.DatePeriodView.Text = State.Periods.Date(position);
+
+            string dayOfWeek = "";
+
+            if (position == 0 || position == 1)
+            {
+                Calendar calendar = Calendar.Instance;
+                if (position == 1)
+                    calendar.Add(CalendarField.DayOfWeek, 1);
+                dayOfWeek += _context.GetString(CalendarToStringId[calendar.Get(CalendarField.DayOfWeek)]);
+                dayOfWeek += ", ";
+            }
+
+            holder.DatePeriodView.Text = dayOfWeek + State.Periods.Date(position);
 
             return view;
-        }
-
-        private void InitOnClickView ()
-        {
-            
         }
     }
 }

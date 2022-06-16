@@ -40,8 +40,8 @@ namespace appOrganizer
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.activity_main);
 
-            Server.LoadData();
-            //Server.LoadEmptyData();
+            //Server.LoadData();
+            Server.LoadEmptyData();
 
             InitFragments(savedInstanceState);
             InitButtons();

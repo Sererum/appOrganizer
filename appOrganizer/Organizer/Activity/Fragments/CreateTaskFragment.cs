@@ -147,6 +147,8 @@ namespace appOrganizer.Organizer.Activity.Fragments
 
         private void OkTaskButtonEvent ()
         {
+            int radioId = _kindTasksRadio.CheckedRadioButtonId;
+
             if (Helper.TextToStandart(_titleEditText.Text).Length == 0)
             {
                 _titleEditText.Text = "";
@@ -155,12 +157,12 @@ namespace appOrganizer.Organizer.Activity.Fragments
 
             if (_isEditTask == true)
             {
+                if (radioId == Resource.Id.RoutineTaskRadioButton)
+                    State.ListRoutine.DeleteTask(State.ListTasks[_indexEditTask]);
+                
                 State.ListTasks.DeleteTask(_indexEditTask);
                 _isEditTask = false;
             }
-                
-
-            int radioId = _kindTasksRadio.CheckedRadioButtonId;
 
             if (radioId == Resource.Id.SingleTaskRadioButton)
                 State.ListTasks.AddTask(new SingleTask(
@@ -170,10 +172,15 @@ namespace appOrganizer.Organizer.Activity.Fragments
                         ));
 
             if (radioId == Resource.Id.RoutineTaskRadioButton)
-                State.ListTasks.AddTask(new RoutineTask(
+            {
+                RoutineTask routine = new RoutineTask(
                         title: _titleEditText.Text,
-                        textTask: _textTaskEditText.Text
-                        ));
+                        textTask: _textTaskEditText.Text,
+                        listRoutineDays: RoutineTasksFragment.ListRoutineDays
+                        );
+                State.ListRoutine.AddTask(routine);
+                Server.AddRoutines();
+            }
 
             if (radioId == Resource.Id.ProjectTaskRadioButton)
                 return;

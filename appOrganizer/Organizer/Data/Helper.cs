@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Java.Util;
+using System;
 using System.Collections.Generic;
 
 namespace appOrganizer.Organizer.Data
@@ -18,29 +19,6 @@ namespace appOrganizer.Organizer.Data
             { 9, Resource.Color.priorityNine },
         };
 
-        public static string TextToStandart(string text)
-        {
-            if (text == null)
-                throw new ArgumentNullException();
-
-            if (text == "")
-                return "";
-
-            string[] arrayWords = text.Split();
-            string final = arrayWords[0];
-
-            foreach (string word in arrayWords[1..])
-            {
-                if (word == "")
-                    continue;
-                final += " " + word;
-            }
-
-            if (final.Length == 0)
-                return "";
-            return final[0].ToString().ToUpper() + final[1..];
-        }
-
         public static Dictionary<byte, string> DateToString = new Dictionary<byte, string>()
         {
             { (byte) GroupDate.Today, GetStringDate(GroupDate.Today) },
@@ -49,6 +27,17 @@ namespace appOrganizer.Organizer.Data
             { (byte) GroupDate.NextMonth, GetStringDate(GroupDate.NextMonth) },
             { (byte) GroupDate.Year, GetStringDate(GroupDate.Year) },
             { (byte) GroupDate.Global, GetStringDate(GroupDate.Global) }
+        };
+
+        public static Dictionary<int, int> CalendarToStringId = new Dictionary<int, int>()
+        {
+            {Calendar.Sunday, Resource.String.sunday },
+            {Calendar.Monday, Resource.String.monday },
+            {Calendar.Tuesday, Resource.String.tuesday },
+            {Calendar.Wednesday, Resource.String.wednesday },
+            {Calendar.Thursday, Resource.String.thursday },
+            {Calendar.Friday, Resource.String.friday },
+            {Calendar.Saturday, Resource.String.saturday }
         };
 
         public enum GroupDate : byte { Today, Tomorrow, ThisMonth, NextMonth, Year, Global }
@@ -83,5 +72,29 @@ namespace appOrganizer.Organizer.Data
             }
             return "";
         }
+
+        public static string TextToStandart (string text)
+        {
+            if (text == null)
+                throw new ArgumentNullException();
+
+            if (text == "")
+                return "";
+
+            string[] arrayWords = text.Split();
+            string final = arrayWords[0];
+
+            foreach (string word in arrayWords[1..])
+            {
+                if (word == "")
+                    continue;
+                final += " " + word;
+            }
+
+            if (final.Length == 0)
+                return "";
+            return final[0].ToString().ToUpper() + final[1..];
+        }
+
     }
 }

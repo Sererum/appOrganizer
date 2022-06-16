@@ -67,6 +67,9 @@ namespace appOrganizer.Organizer.Tasks
 
         public void AddTask(Task task)
         {
+            if (_tasks.Contains(task))
+                return;
+
             _tasks.Add(task);
             SortList();
         }
@@ -74,6 +77,11 @@ namespace appOrganizer.Organizer.Tasks
         public void DeleteTask(int position)
         {
             _tasks.RemoveAt(position);
+        }
+
+        public void DeleteTask(Task task)
+        {
+            _tasks.Remove(task);
         }
 
         public void CompleteTask(bool complete, int position)
@@ -111,10 +119,17 @@ namespace appOrganizer.Organizer.Tasks
             ListTasks finalList = new ListTasks();
 
             for (int i = 0; i < listOne.Count; i++)
-                finalList.AddTask(listOne[i]);
+            {
+                if (listOne[i] is RoutineTask == false)
+                    finalList.AddTask(listOne[i]);
+            }
+                
 
             for (int i = 0; i < listTwo.Count; i++)
-                finalList.AddTask(listTwo[i]);
+            {
+                if (listTwo[i] is RoutineTask == false)
+                    finalList.AddTask(listTwo[i]);
+            }
 
             return finalList;
         }

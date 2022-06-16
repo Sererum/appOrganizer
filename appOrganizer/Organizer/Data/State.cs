@@ -27,6 +27,8 @@ namespace appOrganizer.Organizer.Data
         }
 
         private static ListTasks _listTasks;
+        private static ListTasks _listRoutine;
+
         private static ListTasks _listTasksToday;
         private static ListTasks _listTasksTomorrow;
         private static ListTasks _listTasksThisMonth;
@@ -43,6 +45,18 @@ namespace appOrganizer.Organizer.Data
                     throw new ArgumentNullException();
 
                 _listTasks = value;
+            }
+        }
+
+        public static ListTasks ListRoutine
+        {
+            get { return _listRoutine; }
+            set
+            {
+                if (value == null)
+                    throw new ArgumentNullException();
+
+                _listRoutine = value;
             }
         }
 

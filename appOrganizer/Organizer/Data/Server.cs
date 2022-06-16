@@ -2,7 +2,10 @@
 using Android.Content;
 using Android.Util;
 using appOrganizer.Organizer.Tasks;
+using appOrganizer.Organizer.Tasks.KindTasks;
 using appOrganizer.Organizer.Tasks.ListTasksAdapters;
+using Java.Util;
+using System.Collections.Generic;
 using static appOrganizer.Organizer.Data.Helper;
 
 namespace appOrganizer.Organizer.Data
@@ -17,18 +20,21 @@ namespace appOrganizer.Organizer.Data
         {
             State.Periods = new Periods();
 
-            State.ListTasksToday = new Tasks.ListTasks(_preferences.GetString(State.Periods.Date(GroupDate.Today), ""));
-            State.ListTasksTomorrow = new Tasks.ListTasks(_preferences.GetString(State.Periods.Date(GroupDate.Tomorrow), ""));
-            State.ListTasksThisMonth = new Tasks.ListTasks(_preferences.GetString(State.Periods.Date(GroupDate.ThisMonth), ""));
-            State.ListTasksNextMonth = new Tasks.ListTasks(_preferences.GetString(State.Periods.Date(GroupDate.NextMonth), ""));
-            State.ListTasksYear = new Tasks.ListTasks(_preferences.GetString(State.Periods.Date(GroupDate.Year), ""));
-            State.ListTasksGlobal = new Tasks.ListTasks(_preferences.GetString(State.Periods.Date(GroupDate.Global), ""));
+            State.ListTasksToday = new ListTasks(_preferences.GetString(State.Periods.Date(GroupDate.Today), ""));
+            State.ListTasksTomorrow = new ListTasks(_preferences.GetString(State.Periods.Date(GroupDate.Tomorrow), ""));
+            State.ListTasksThisMonth = new ListTasks(_preferences.GetString(State.Periods.Date(GroupDate.ThisMonth), ""));
+            State.ListTasksNextMonth = new ListTasks(_preferences.GetString(State.Periods.Date(GroupDate.NextMonth), ""));
+            State.ListTasksYear = new ListTasks(_preferences.GetString(State.Periods.Date(GroupDate.Year), ""));
+            State.ListTasksGlobal = new ListTasks(_preferences.GetString(State.Periods.Date(GroupDate.Global), ""));
 
-            State.ListTasksToday += new Tasks.ListTasks(_preferences.GetString("UncompleteDayTasks", ""));
-            State.ListTasksThisMonth += new Tasks.ListTasks(_preferences.GetString("UncompleteMounthTasks", ""));
-            State.ListTasksYear += new Tasks.ListTasks(_preferences.GetString("UncompleteYearTasks", ""));
+            State.ListTasksToday += new ListTasks(_preferences.GetString("UncompleteDayTasks", ""));
+            State.ListTasksThisMonth += new ListTasks(_preferences.GetString("UncompleteMounthTasks", ""));
+            State.ListTasksYear += new ListTasks(_preferences.GetString("UncompleteYearTasks", ""));
 
             State.Periods = new Periods();
+
+            State.ListRoutine = new ListTasks(_preferences.GetString("RoutineListTasks", ""));
+            AddRoutines();
 
             Log.Debug("L____UncompleteDayTasks", _preferences.GetString("UncompleteDayTasks", ""));
             Log.Debug("L_UncompleteMounthTasks", _preferences.GetString("UncompleteMounthTasks", ""));
@@ -40,7 +46,6 @@ namespace appOrganizer.Organizer.Data
             Log.Debug("L______________________", State.Periods.List(GroupDate.Year).ToString());
             Log.Debug("L______________________", State.Periods.List(GroupDate.Global).ToString());
 
-            //State.ListTasksToday = new Tasks.ListTasks("Task A═Warning═9╬Task F═Pass═3");
             State.ListTasks = State.ListTasksToday;
         }
 
@@ -61,6 +66,8 @@ namespace appOrganizer.Organizer.Data
 
             State.Periods = new Periods();
 
+            State.ListRoutine = new Tasks.ListTasks("");
+
             State.ListTasks = State.ListTasksToday;
         }
 
@@ -73,6 +80,7 @@ namespace appOrganizer.Organizer.Data
             _preferencesEdit.PutString("UncompleteDayTasks", uncompleteDayTasks.ToString());
             _preferencesEdit.PutString("UncompleteMounthTasks", uncompleteMounthTasks.ToString());
             _preferencesEdit.PutString("UncompleteYearTasks", uncompleteYearTasks.ToString());
+            _preferencesEdit.PutString("RoutineListTasks", State.ListRoutine.ToString());
 
             _preferencesEdit.PutString(State.Periods.Date(GroupDate.Today), State.Periods.List(GroupDate.Today).ToString());
             _preferencesEdit.PutString(State.Periods.Date(GroupDate.Tomorrow), State.Periods.List(GroupDate.Tomorrow).ToString());
@@ -92,6 +100,26 @@ namespace appOrganizer.Organizer.Data
             Log.Debug("S______________________", State.Periods.List(GroupDate.Global).ToString());
 
             _preferencesEdit.Commit();
+        }
+
+        public static void AddRoutines ()
+        {
+            ListTasks routines = State.ListRoutine;
+            Calendar today = Calendar.Instance;
+            Calendar tomorrow = Calendar.Instance;
+            tomorrow.Add(CalendarField.DayOfWeek, 1);
+
+            for (int i = 0; i < State.ListRoutine.Count; i++)
+            {
+                Log.Debug("___________", today.Get(CalendarField.DayOfWeek) + " " + tomorrow.Get(CalendarField.DayOfWeek));
+
+                List<int> days = (routines[i] as RoutineTask).ListRoutineDays;
+
+                if (days.Contains(today.Get(CalendarField.DayOfWeek)))
+                    State.ListTasksToday.AddTask(routines[i]);
+                if (days.Contains(tomorrow.Get(CalendarField.DayOfWeek)))
+                    State.ListTasksTomorrow.AddTask(routines[i]);
+            }
         }
     }
 }
